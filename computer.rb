@@ -7,6 +7,10 @@ class Computer
   end
 
   def generate_code
-    4.times { @@comp_code << rand(7) }
+    4.times { @@comp_code << rand(1..6) }
+  end
+
+  def reset_code
+    @@comp_code = @@comp_code.clear
   end
 end

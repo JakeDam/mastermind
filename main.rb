@@ -6,9 +6,10 @@ require_relative 'player.rb'
 include Interface
 include Colors 
 
-test = Computer.new
-test.generate_code
-puts test.comp_code
+test_comp = Computer.new
+test_player = Player.new("Jake")
+test_game = Game.new(test_comp, test_player)
+
 
 
 
