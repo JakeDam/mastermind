@@ -26,7 +26,9 @@ module Interface
         break
       end
     end
+    return guess
   end
+
 end
 
   

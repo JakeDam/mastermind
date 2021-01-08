@@ -1,16 +1,12 @@
 class Computer
-  @@comp_code = []
-  @@test = "test"
-
-  def comp_code
-    @@comp_code
+  attr_accessor :comp_code
+  def initialize
+    @comp_code = []
   end
-
+ 
+  #Need to fix generate_code
   def generate_code
-    4.times { @@comp_code << rand(1..6) }
-  end
-
-  def reset_code
-    @@comp_code = @@comp_code.clear
+    4.times { @comp_code << rand(1..6) }
   end
 end
+

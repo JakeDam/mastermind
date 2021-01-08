@@ -9,7 +9,7 @@ include Colors
 test_comp = Computer.new
 test_player = Player.new("Jake")
 test_game = Game.new(test_comp, test_player)
-test_game.code_break
+puts test_comp.generate_code
 
 
 
