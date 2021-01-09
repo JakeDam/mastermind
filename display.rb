@@ -32,4 +32,12 @@ module Display
       sleep(0.5)
       puts "Code generated! Begin code cracking procedure!"
   end
+
+  def feedback(exact_match, num_match)
+    print "Feedback: "
+    exact_match.times { print "\e[91m\u25CF\e[0m " }
+    num_match.times { print "\e[37m\u25CB\e[0m " }
+    print "\n"
+  end
+
 end

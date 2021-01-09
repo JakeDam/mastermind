@@ -1,10 +1,10 @@
 class Player
+  attr_reader :name
   def initialize(name)
     @name = name
   end
 
   def make_guess
-    puts "Enter your guess"
     while guess = gets.chomp
       if guess.length != 4
         puts "Enter a 4 digit number"
