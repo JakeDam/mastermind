@@ -16,4 +16,20 @@ module Display
       "\e[46m   6   \e[0m"
     end
   end
+
+  def code_generator
+    puts "The computer is generating the code!"
+      sleep(0.5)
+      print ". "
+      sleep(0.5)
+      print ". "
+      sleep(0.5)
+      print ". "
+      sleep(0.5)
+      print ". "
+      sleep(0.5)
+      puts " COMPLETE"
+      sleep(0.5)
+      puts "Code generated! Begin code cracking procedure!"
+  end
 end
