@@ -1,4 +1,4 @@
-module Colors 
+module Display
 
   def color_blocks(number)
     case number 
