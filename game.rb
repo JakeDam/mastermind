@@ -31,21 +31,37 @@ class Game
     num_matches_found
   end
 
-  def game_over(outcome)
+  def game_over(outcome, code)
     if outcome == "win"
       puts "Code sucessfully cracked! Congrats!"
-      exit
+      puts "Play again? (Y/N)"
+      while input == gets.chomp.downcase
+        case input
+        when "y"
+          play_game
+        when "n"
+          puts "Thanks for playing!"
+          exit
+        end
+      end
     else
       puts "You failed to crack the code!"
-      exit
+      while input == gets.chomp.downcase
+        case input
+        when "y"
+          play_game
+        when "n"
+          puts "Thanks for playing!"
+          exit
+        end
+      end
     end
   end
 
   def play
     code_generator
     @computer.generate_code
-    code = ["4", "1", "1", "2"] #@computer.comp_code.map { |num| num.to_s }
-    p code
+    code = @computer.comp_code.map { |num| num.to_s }
     while @turns < 13 do
       puts "Turn #{@turns}: #{@player.name}, enter your guess"
       guess = @player.make_guess.split("")

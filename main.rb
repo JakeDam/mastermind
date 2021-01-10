@@ -4,10 +4,19 @@ require_relative 'computer.rb'
 require_relative 'game.rb'
 include Display
 
-test_player = Player.new("Jake")
-test_comp = Computer.new
-test_game = Game.new(test_player, test_comp)
-test_game.play
+def play_game
+  player = Player.new("Player")
+  computer = Computer.new
+  game = Game.new(player, computer)
+
+  player.name = player.get_name
+
+  game.play
+end
+
+play_game
+
+
 
 
 

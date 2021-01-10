@@ -1,7 +1,12 @@
 class Player
-  attr_reader :name
+  attr_accessor :name
   def initialize(name)
     @name = name
+  end
+
+  def get_name
+    puts "Codebreaker, please enter your name: "
+    name = gets.chomp
   end
 
   def make_guess
