@@ -9,8 +9,9 @@ class Game
   def find_exact_matches(guess, code, array)
     exact_matches_found = 0
     guess.each_with_index do |guess_num, guess_index|
-      if guess_num == code[guess_index]
+      if guess_num == code[guess_index] && guess_num != "x"
         exact_matches_found += 1
+        guess[guess_index], code[guess_index] = "x", "x"
         array << guess_index
       end
     end
@@ -19,11 +20,13 @@ class Game
 
   def find_num_matches(guess, code, array)
     num_matches_found = 0
-    guess.each do |guess_num|
+    guess.each_with_index do |guess_num, guess_index|
       code.each.each_with_index do |code_num, code_index|
-        if guess_num == code_num && array.include?(code_index) == false
+        if guess_num == code_num && array.include?(code_index) == false && guess_num != "x"
           num_matches_found += 1
           array << code_index
+          guess[guess_index]= "x"
+          code[code_index] = "x"
           break
         end
       end
@@ -46,7 +49,10 @@ class Game
       end
     else
       puts "You failed to crack the code!"
-      puts "Code was: #{code}"
+      print "Code was: " 
+      code.each { |num| print num }
+      print "\n"
+      puts "Play again? (Y/N)"
       while input == gets.chomp.downcase
         case input
         when "y"
@@ -73,9 +79,12 @@ class Game
         game_over("win", code)
       end
       exact_matches, num_matches = 0, 0
+      guess_clone, code_clone = [], []
+      guess_clone.replace(guess)
+      code_clone.replace(code)
       match_indexes = []
-      exact_matches += find_exact_matches(guess, code, match_indexes)
-      num_matches += find_num_matches(guess, code, match_indexes)
+      exact_matches += find_exact_matches(guess_clone, code_clone, match_indexes)
+      num_matches += find_num_matches(guess_clone, code_clone, match_indexes)
       feedback(exact_matches, num_matches)
       @turns += 1
     end
