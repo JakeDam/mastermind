@@ -72,7 +72,7 @@ class Game
     while @turns < 13 do
       puts "Turn #{@turns}: #{@player.name}, enter your guess"
       guess = @player.make_guess.split("")
-      guess.each { |n| print color_blocks(n.to_i) }
+      guess.each { |n| print color_blocks(n.to_i) + " " }
       print "\n"
       if guess == code
         feedback(4,0)

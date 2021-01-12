@@ -3,17 +3,17 @@ module Display
   def color_blocks(number)
     case number 
     when 1
-      "\e[41m   1   \e[0m"
+      "\e[41m 1 \e[0m"
     when 2
-      "\e[42m   2   \e[0m"
+      "\e[42m 2 \e[0m"
     when 3
-      "\e[43m   3   \e[0m"
+      "\e[43m 3 \e[0m"
     when 4
-      "\e[44m   4   \e[0m"
+      "\e[44m 4 \e[0m"
     when 5
-      "\e[45m   5   \e[0m"
+      "\e[45m 5 \e[0m"
     when 6
-      "\e[46m   6   \e[0m"
+      "\e[46m 6 \e[0m"
     end
   end
 
@@ -29,9 +29,9 @@ module Display
   end
 
   def feedback(exact_match, num_match)
-    print "Feedback: "
-    exact_match.times { print "\e[91m\u25CF\e[0m " }
-    num_match.times { print "\e[37m\u25CB\e[0m " }
+    puts "Feedback: "
+    exact_match.times { print "\e[41m   \e[0m " }
+    num_match.times { print "\e[47m   \e[0m " }
     print "\n"
   end
 
