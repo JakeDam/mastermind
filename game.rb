@@ -46,6 +46,7 @@ class Game
       end
     else
       puts "You failed to crack the code!"
+      puts "Code was: #{code}"
       while input == gets.chomp.downcase
         case input
         when "y"
@@ -69,7 +70,7 @@ class Game
       print "\n"
       if guess == code
         feedback(4,0)
-        game_over("win")
+        game_over("win", code)
       end
       exact_matches, num_matches = 0, 0
       match_indexes = []
@@ -78,6 +79,6 @@ class Game
       feedback(exact_matches, num_matches)
       @turns += 1
     end
-    game_over("lose")
+    game_over("lose", code)
   end
 end

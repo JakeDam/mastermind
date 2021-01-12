@@ -19,15 +19,10 @@ module Display
 
   def code_generator
     puts "The computer is generating the code!"
-      sleep(0.5)
-      print ". "
-      sleep(0.5)
-      print ". "
-      sleep(0.5)
-      print ". "
-      sleep(0.5)
-      print ". "
-      sleep(0.5)
+      5.times do
+        sleep(0.5)
+        print ". "
+      end
       puts " COMPLETE"
       sleep(0.5)
       puts "Code generated! Begin code cracking procedure!"
