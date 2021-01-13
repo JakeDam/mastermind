@@ -28,11 +28,39 @@ module Display
       puts "Code generated! Begin code cracking procedure!"
   end
 
+  def guess_generator(turn)
+    puts "Turn #{turn}: Computer is generating guess!"
+      5.times do
+        sleep(0.5)
+        print ". "
+      end
+    puts " Complete"
+    sleep(0.5)
+    puts "Computers guess:"
+  end
+
   def feedback(exact_match, num_match)
     puts "Feedback: "
     exact_match.times { print "\e[41m   \e[0m " }
     num_match.times { print "\e[47m   \e[0m " }
     print "\n"
   end
+
+  def choose_mode
+    puts "Welcome to MASTERMIND!"
+    sleep(0.5)
+    puts "Press 1 to be the CodeBREAKER"
+    puts "Press 2 to be the CodeMAKER"
+    while input = gets.chomp
+      if input == "1"
+        return "player_breaker"
+      elsif input == "2"
+        return "comp_breaker"
+      else
+        puts "Please enter 1 or 2"
+      end
+    end
+  end
+
 
 end

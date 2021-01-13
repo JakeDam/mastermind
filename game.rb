@@ -34,51 +34,68 @@ class Game
     num_matches_found
   end
 
-  def game_over(outcome, code)
+  def game_over(outcome, code, mode)
     if outcome == "win"
-      puts "Code sucessfully cracked! Congrats!"
-      puts "Play again? (Y/N)"
-      while input = gets.chomp.downcase
-        if input == "y"
-          play_game
-        elsif input == "n"
-          puts "Thanks for playing!"
-          exit
-        else
-          puts "Please enter Y or N"
-        end
+      if mode == "player_breaker"
+        puts "Code sucessfully cracked! Congrats!"
+      else  
+        puts "Computer failed to guess code! Congrats!"
       end
     else
-      puts "You failed to crack the code!"
-      print "Code was: " 
-      code.each { |num| print num }
-      print "\n"
-      puts "Play again? (Y/N)"
-      while input = gets.chomp.downcase
-        if input == "y"
-          play_game
-        elsif input == "n"
-          puts "Thanks for playing!"
-          exit
-        else
-          puts "Please enter Y or N"
-        end
+      if mode == "player_breaker"
+        puts "You failed to crack the code!"
+        print "Code was: " 
+        code.each { |num| print num }
+        print "\n"
+      else  
+        puts "The computer cracked your code!"
+      end
+    end
+    puts "Play again? (Y/N)"
+    while input = gets.chomp.downcase
+      if input == "y"
+        play_game
+      elsif input == "n"
+        puts "Thanks for playing!"
+        exit
+      else
+        puts "Please enter Y or N"
       end
     end
   end
 
-  def play
-    code_generator
-    @computer.generate_code
-    code = @computer.comp_code.map { |num| num.to_s }
-    while @turns < 13 do
-      puts "Turn #{@turns}: #{@player.name}, enter your guess"
-      guess = @player.make_guess.split("")
-      guess.each { |n| print color_blocks(n.to_i) + " " }
+  def play(mode)
+    if mode == "player_breaker"
+      code_generator
+      @computer.generate_code
+      code = @computer.comp_code.map { |num| num.to_s }
+    else  
+      code = @player.make_code.split("")
+      puts "Code set:"
+      code.each { |n| print color_blocks(n.to_i) + " " }
       print "\n"
+    end
+    while @turns < 13 do
+      sleep(0.5)
+      if mode == "player_breaker"
+        puts "Turn #{@turns}: #{@player.name}, enter your guess"
+        guess = @player.make_guess.split("")
+        guess.each { |n| print color_blocks(n.to_i) + " " }
+        print "\n"
+      else  
+        guess_generator(@turns)
+        guess = @computer.comp_guess.map { |num| num.to_s }
+        sleep(0.5)
+        guess.each { |n| print color_blocks(n.to_i) + " " }
+        print "\n"
+      end
       if guess == code
         feedback(4,0)
-        game_over("win", code)
+        if mode == "player_breaker"
+          game_over("win", code, mode)
+        else
+          game_over("lose", code, mode)
+        end
       end
       exact_matches, num_matches = 0, 0
       guess_clone, code_clone = [], []
@@ -87,9 +104,15 @@ class Game
       match_indexes = []
       exact_matches += find_exact_matches(guess_clone, code_clone, match_indexes)
       num_matches += find_num_matches(guess_clone, code_clone, match_indexes)
+      sleep(0.5)
       feedback(exact_matches, num_matches)
+      sleep(0.5)
       @turns += 1
     end
-    game_over("lose", code)
+    if mode == "player_breaker"
+      game_over("lose", code, mode)
+    else
+      game_over("win", code, mode)
+    end
   end
 end

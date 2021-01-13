@@ -8,4 +8,11 @@ class Computer
   def generate_code
     4.times { @comp_code << rand(1..6) }
   end
+  
+  def comp_guess
+    guess = []
+    4.times { guess << rand(1..6) }
+    guess
+  end
+  
 end
