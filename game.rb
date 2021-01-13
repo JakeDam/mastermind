@@ -38,13 +38,14 @@ class Game
     if outcome == "win"
       puts "Code sucessfully cracked! Congrats!"
       puts "Play again? (Y/N)"
-      while input == gets.chomp.downcase
-        case input
-        when "y"
+      while input = gets.chomp.downcase
+        if input == "y"
           play_game
-        when "n"
+        elsif input == "n"
           puts "Thanks for playing!"
           exit
+        else
+          puts "Please enter Y or N"
         end
       end
     else
@@ -53,13 +54,14 @@ class Game
       code.each { |num| print num }
       print "\n"
       puts "Play again? (Y/N)"
-      while input == gets.chomp.downcase
-        case input
-        when "y"
+      while input = gets.chomp.downcase
+        if input == "y"
           play_game
-        when "n"
+        elsif input == "n"
           puts "Thanks for playing!"
           exit
+        else
+          puts "Please enter Y or N"
         end
       end
     end
