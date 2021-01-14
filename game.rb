@@ -64,7 +64,7 @@ class Game
     end
   end
 
-  def play(mode)
+  def set_code(mode)
     if mode == "player_breaker"
       code_generator
       @computer.generate_code
@@ -75,33 +75,54 @@ class Game
       code.each { |n| print color_blocks(n.to_i) + " " }
       print "\n"
     end
+  code
+  end
+
+  def set_guess(mode)
+    if mode == "player_breaker"
+      puts "Turn #{@turns}: #{@player.name}, enter your guess"
+      guess = @player.make_guess.split("")
+      guess.each { |n| print color_blocks(n.to_i) + " " }
+      print "\n"
+    else  
+      guess_generator(@turns)
+      guess = @computer.comp_guess.map { |num| num.to_s }
+      sleep(0.5)
+      guess.each { |n| print color_blocks(n.to_i) + " " }
+      print "\n"
+    end
+  guess
+  end
+
+  def check_win(guess, code)
+    if guess == code
+      feedback(4,0)
+      if mode == "player_breaker"
+        game_over("win", code, mode)
+      else
+        game_over("lose", code, mode)
+      end
+    end
+  end
+
+  def end_turns(mode, code)
+    if mode == "player_breaker"
+      game_over("lose", code, mode)
+    else
+      game_over("win", code, mode)
+    end
+  end
+
+
+  def play(mode)
+    code = set_code(mode)
     while @turns < 13 do
       sleep(0.5)
-      if mode == "player_breaker"
-        puts "Turn #{@turns}: #{@player.name}, enter your guess"
-        guess = @player.make_guess.split("")
-        guess.each { |n| print color_blocks(n.to_i) + " " }
-        print "\n"
-      else  
-        guess_generator(@turns)
-        guess = @computer.comp_guess.map { |num| num.to_s }
-        sleep(0.5)
-        guess.each { |n| print color_blocks(n.to_i) + " " }
-        print "\n"
-      end
-      if guess == code
-        feedback(4,0)
-        if mode == "player_breaker"
-          game_over("win", code, mode)
-        else
-          game_over("lose", code, mode)
-        end
-      end
-      exact_matches, num_matches = 0, 0
-      guess_clone, code_clone = [], []
+      guess = set_guess(mode)
+      check_win(guess, code)
+      exact_matches, num_matches, guess_clone, code_clone, match_indexes = 0, 0, [], [], []
       guess_clone.replace(guess)
       code_clone.replace(code)
-      match_indexes = []
       exact_matches += find_exact_matches(guess_clone, code_clone, match_indexes)
       num_matches += find_num_matches(guess_clone, code_clone, match_indexes)
       sleep(0.5)
@@ -109,10 +130,6 @@ class Game
       sleep(0.5)
       @turns += 1
     end
-    if mode == "player_breaker"
-      game_over("lose", code, mode)
-    else
-      game_over("win", code, mode)
-    end
+    end_turns(mode, code)
   end
 end
