@@ -3,6 +3,7 @@ class Computer
   
   def initialize
     @comp_code = []
+    @next_guess = []
   end
 
   def generate_code
@@ -15,8 +16,20 @@ class Computer
     guess
   end
 
-  def comp_solve(exact_matches, color_matches)
-    #TO DO: Work out computer solving algorithm 
-
-  
+  def comp_solve(exact_matches, color_matches, prev_guess)
+    nums = ["1", "2", "3", "4", "5", "6"]
+    feedback = exact_matches + color_matches
+    case feedback 
+    when 0
+      #TODO
+    when 1
+      #TODO
+    when 2
+      #TODO
+    when 3
+      #TODO
+    when 4
+      #TODO
+    end
+  end
 end
