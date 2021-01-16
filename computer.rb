@@ -18,24 +18,20 @@ class Computer
   end
 
   def comp_solve(exact_matches, color_matches)
-    puts "CALLED!"
     feedback = exact_matches + color_matches 
     case feedback
     when 0
       next_num = @next_guess[0].to_i + 1
-      p next_num
       @next_guess.map! { |n| n = next_num.to_s }
     when 1
-      next_num = @next_guess[0].to_i + 1
-      p next_num
-      @next_guess[1..-1].map! { |n| n = next_num.to_s }
-      p @next_guess
-    when 2
       next_num = @next_guess[1].to_i + 1
-      @next_guess[2..-1].map! { |n| n = next_num.to_s }
-    when 3
+      @next_guess.map!.with_index { |n, i| i == 0 ? n : n = next_num.to_s }
+    when 2
       next_num = @next_guess[2].to_i + 1
-      @next_guess[3] = next_num
+      @next_guess.map!.with_index { |n, i| i == 0 || i == 1 ? n : n = next_num.to_s }
+    when 3
+      next_num = @next_guess[3].to_i + 1
+      @next_guess[3] = next_num.to_s
     when 4
       @next_guess.shuffle!
     end
