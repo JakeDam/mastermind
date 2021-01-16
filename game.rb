@@ -86,7 +86,7 @@ class Game
       print "\n"
     else  
       guess_generator(@turns)
-      guess = @computer.comp_guess.map { |num| num.to_s }
+      guess = @computer.next_guess
       sleep(0.5)
       guess.each { |n| print color_blocks(n.to_i) + " " }
       print "\n"
@@ -94,7 +94,7 @@ class Game
   guess
   end
 
-  def check_win(guess, code)
+  def check_win(guess, code, mode)
     if guess == code
       feedback(4,0)
       if mode == "player_breaker"
@@ -119,7 +119,7 @@ class Game
     while @turns < 13 do
       sleep(0.5)
       guess = set_guess(mode)
-      check_win(guess, code)
+      check_win(guess, code, mode)
       exact_matches, num_matches, guess_clone, code_clone, match_indexes = 0, 0, [], [], []
       guess_clone.replace(guess)
       code_clone.replace(code)
@@ -127,6 +127,7 @@ class Game
       num_matches += find_num_matches(guess_clone, code_clone, match_indexes)
       sleep(0.5)
       feedback(exact_matches, num_matches)
+      @computer.comp_solve(exact_matches, num_matches)
       sleep(0.5)
       @turns += 1
     end

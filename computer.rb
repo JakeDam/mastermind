@@ -1,9 +1,10 @@
 class Computer
-  attr_reader :comp_code
+  attr_reader :comp_code 
+  attr_reader :next_guess
   
   def initialize
     @comp_code = []
-    @next_guess = []
+    @next_guess = ["1", "1", "1", "1"]
   end
 
   def generate_code
@@ -16,20 +17,27 @@ class Computer
     guess
   end
 
-  def comp_solve(exact_matches, color_matches, prev_guess)
-    nums = ["1", "2", "3", "4", "5", "6"]
-    feedback = exact_matches + color_matches
-    case feedback 
+  def comp_solve(exact_matches, color_matches)
+    puts "CALLED!"
+    feedback = exact_matches + color_matches 
+    case feedback
     when 0
-      #TODO
+      next_num = @next_guess[0].to_i + 1
+      p next_num
+      @next_guess.map! { |n| n = next_num.to_s }
     when 1
-      #TODO
+      next_num = @next_guess[0].to_i + 1
+      p next_num
+      @next_guess[1..-1].map! { |n| n = next_num.to_s }
+      p @next_guess
     when 2
-      #TODO
+      next_num = @next_guess[1].to_i + 1
+      @next_guess[2..-1].map! { |n| n = next_num.to_s }
     when 3
-      #TODO
+      next_num = @next_guess[2].to_i + 1
+      @next_guess[3] = next_num
     when 4
-      #TODO
+      @next_guess.shuffle!
     end
   end
 end
