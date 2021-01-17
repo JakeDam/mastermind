@@ -33,7 +33,14 @@ class Computer
       next_num = @next_guess[3].to_i + 1
       @next_guess[3] = next_num.to_s
     when 4
-      @next_guess.shuffle!
+      case exact_matches
+      when 0
+        @next_guess.shuffle!
+      when 1
+        @next_guess[1, 3] = @next_guess[1, 3].shuffle
+      when 2
+        @next_guess[2, 3] = @next_guess[2, 3].shuffle
+      end
     end
   end
 end
