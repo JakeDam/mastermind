@@ -41,6 +41,9 @@ module Display
 
   def feedback(exact_match, num_match)
     puts "Feedback: "
+    if exact_match + num_match == 0
+      print "No matches!"
+    end
     exact_match.times { print "\e[41m   \e[0m " }
     num_match.times { print "\e[47m   \e[0m " }
     print "\n"

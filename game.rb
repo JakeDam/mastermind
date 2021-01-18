@@ -127,7 +127,9 @@ class Game
       num_matches += find_num_matches(guess_clone, code_clone, match_indexes)
       sleep(0.5)
       feedback(exact_matches, num_matches)
-      @computer.comp_solve(exact_matches, num_matches)
+      if mode != "player_breaker"
+        @computer.comp_solve(exact_matches, num_matches)
+      end
       sleep(0.5)
       @turns += 1
     end
