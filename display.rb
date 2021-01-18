@@ -50,8 +50,8 @@ module Display
   end
 
   def choose_mode
-    puts "Press 1 to be the CodeBREAKER"
-    puts "Press 2 to be the CodeMAKER"
+    puts "Press 1 to play as the CodeBREAKER"
+    puts "Press 2 to play as the CodeMAKER"
     while input = gets.chomp
       if input == "1"
         return "player_breaker"
