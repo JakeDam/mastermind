@@ -50,8 +50,6 @@ module Display
   end
 
   def choose_mode
-    puts "Welcome to MASTERMIND!"
-    sleep(0.5)
     puts "Press 1 to be the CodeBREAKER"
     puts "Press 2 to be the CodeMAKER"
     while input = gets.chomp
