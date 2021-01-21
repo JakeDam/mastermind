@@ -17,7 +17,7 @@ module Directions
 
     A red block \e[41m   \e[0m indicates that the guess has a number that is correct and also in the correct position.
 
-    A white block \e[47m   \e[0m indicates that the guess has a numer that is correct but in the wrong position. 
+    A white block \e[47m   \e[0m indicates that the guess has a number that is correct but in the wrong position. 
     
     EXAMPLE:
     Code: #{color_blocks(2)} #{color_blocks(6)} #{color_blocks(4)} #{color_blocks(5)}
