@@ -21,14 +21,21 @@ module Directions
 
       A red block \e[41m   \e[0m indicates that the guess has a number that is correct and also in the correct position.
 
-      A white block \e[47m   \e[0m indicates that the guess has a numer that is correct but in the wrong position.#{' '}
+      A white block \e[47m   \e[0m indicates that the guess has a number that is correct but in the wrong position.#{' '}
 
       EXAMPLE:
       Code: #{color_blocks(2)} #{color_blocks(6)} #{color_blocks(4)} #{color_blocks(5)}
 
       Guess: #{color_blocks(1)} #{color_blocks(6)} #{color_blocks(2)} #{color_blocks(2)}
 
+<<<<<<< HEAD
       Feedback: \e[41m   \e[0m \e[47m   \e[0m
+=======
+    A white block \e[47m   \e[0m indicates that the guess has a number that is correct but in the wrong position. 
+    
+    EXAMPLE:
+    Code: #{color_blocks(2)} #{color_blocks(6)} #{color_blocks(4)} #{color_blocks(5)}
+>>>>>>> da0a257346be0006d83413b22233864dbf07a1aa
 
       This example yields feedback of one red block and one white block.
       The red block is given becuase the guess matches the code exactly at the second position with the number #{color_blocks(6)}.
@@ -44,5 +51,8 @@ module Directions
       Ready? LET'S PLAY MASTERMIND!!!
     HEREDOC
   end
+<<<<<<< HEAD
   # rubocop:enable Metrics/AbcSize
+=======
+>>>>>>> da0a257346be0006d83413b22233864dbf07a1aa
 end
