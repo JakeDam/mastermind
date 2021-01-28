@@ -7,11 +7,10 @@ include Display
 include Directions
 
 def play_game
-  player = Player.new("Player")
+  player = Player.new
   computer = Computer.new
   game = Game.new(player, computer)
   mode = choose_mode
-  player.name = player.get_name
 
   game.play(mode)
 end
