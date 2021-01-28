@@ -1,10 +1,8 @@
-require_relative 'display.rb'
-require_relative 'player.rb'
-require_relative 'computer.rb'
-require_relative 'game.rb'
-require_relative 'directions.rb'
-include Display
-include Directions
+require_relative 'display'
+require_relative 'player'
+require_relative 'computer'
+require_relative 'game'
+require_relative 'directions'
 
 def play_game
   player = Player.new
@@ -17,8 +15,3 @@ end
 
 puts directions
 play_game
-
-
-
-
-
