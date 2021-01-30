@@ -52,6 +52,20 @@ class Computer
     guess
   end
 
+  feedback_hash = {
+    0 => method(:feedback0).to_proc,
+    1 => method(:feedback1).to_proc,
+    2 => method(:feedback2).to_proc,
+    3 => method(:feedback3).to_proc,
+    4 => method(:feedback4).to_proc
+  }
+
+  def comp_solve(exact_matches, color_matches)
+    feedback = exact_matches + color_matches
+    guess = @next_guess
+    @next_guess.replace(feedback_hash[feedback].call(guess))
+  end
+
   #   def comp_solve(exact_matches, color_matches)
   #     feedback = exact_matches + color_matches
   #     guess = @next_guess
