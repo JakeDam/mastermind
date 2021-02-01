@@ -10,6 +10,7 @@ class Computer
   end
 
   def generate_code
+    code_generator
     4.times { @comp_code << rand(1..6) }
   end
 
