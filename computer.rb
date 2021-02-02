@@ -53,21 +53,21 @@ class Computer
     guess
   end
 
-  FEEDBACK_HASH = Hash.new(
-    '0' => -> { feedback0 },
-    '1' => -> { feedback1 },
-    '2' => -> { feedback2 },
-    '3' => -> { feedback3 },
-    '4' => -> { feedback4 }
-  )
+  FEEDBACK_HASH = {
+    0 => method(:feedback0),
+    1 => method(:feedback1),
+    2 => method(:feedback2),
+    3 => method(:feedback3),
+    4 => method(:feedback4)
+  }.freeze
 
   def comp_solve(exact_matches, color_matches)
-    feedback = (exact_matches + color_matches).to_s
+    feedback = (exact_matches + color_matches)
     guess = @next_guess
-    if feedback != '4'
-      @next_guess.replace((FEEDBACK_HASH[feedback].call(guess)))
+    if feedback != 4
+      @next_guess.replace(FEEDBACK_HASH[feedback].call(guess))
     else
-      @next_guess.replace((FEEDBACK_HASH[feedback].call(guess, exact_matches)))
+      @next_guess.replace(FEEDBACK_HASH[feedback].call(guess, exact_matches))
     end
   end
 end

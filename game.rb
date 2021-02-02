@@ -9,7 +9,7 @@ class Game
     @turns = 1
   end
 
-  def add_x_to_array(mode, guess, code, guess_index, code_index)
+  def add_x_to_array(mode, guess, code, guess_index, code_index = nil)
     guess[guess_index] = 'x'
     if mode == 'exact'
       code[guess_index] = 'x'
@@ -24,7 +24,7 @@ class Game
       next unless guess_num == code[guess_index] && guess_num != 'x'
 
       exact_matches_found += 1
-      add_x_to_array('exact', guess, code, guess_index, code_index)
+      add_x_to_array('exact', guess, code, guess_index)
       array << guess_index
     end
     exact_matches_found
