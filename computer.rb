@@ -53,20 +53,34 @@ class Computer
     guess
   end
 
+  FEEDBACK_HASH = Hash.new(
+    '0' => -> { feedback0 },
+    '1' => -> { feedback1 },
+    '2' => -> { feedback2 },
+    '3' => -> { feedback3 },
+    '4' => -> { feedback4 }
+  )
+
   def comp_solve(exact_matches, color_matches)
-    feedback = exact_matches + color_matches
+    feedback = (exact_matches + color_matches).to_s
     guess = @next_guess
-    case feedback
-    when 0
-      @next_guess.replace(feedback0(guess))
-    when 1
-      @next_guess.replace(feedback1(guess))
-    when 2
-      @next_guess.replace(feedback2(guess))
-    when 3
-      @next_guess.replace(feedback3(guess))
-    when 4
-      @next_guess.replace(feedback4(guess, exact_matches))
+    if feedback != '4'
+      @next_guess.replace((FEEDBACK_HASH[feedback].call(guess)))
+    else
+      @next_guess.replace((FEEDBACK_HASH[feedback].call(guess, exact_matches)))
     end
   end
 end
+
+#    case feedback
+#     when 0
+#       @next_guess.replace(feedback0(guess))
+#     when 1
+#       @next_guess.replace(feedback1(guess))
+#     when 2
+#       @next_guess.replace(feedback2(guess))
+#     when 3
+#       @next_guess.replace(feedback3(guess))
+#     when 4
+#       @next_guess.replace(feedback4(guess, exact_matches))
+#     end
