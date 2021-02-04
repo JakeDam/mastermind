@@ -7,6 +7,8 @@ class Game
     @player = player
     @computer = computer
     @turns = 1
+    @guess_clone = []
+    @code_clone = []
   end
 
   def add_x_to_array(mode, guess, code, guess_index, code_index = nil)
@@ -89,25 +91,26 @@ class Game
     end
   end
 
+  def feedback_and_comp_solve(exact_matches, num_matches, mode)
+    sleep(0.5)
+    feedback(exact_matches, num_matches)
+    @computer.comp_solve(exact_matches, num_matches) if mode != 'player_breaker'
+    sleep(0.5)
+  end
+
   def play(mode)
     code = initialize_code(mode)
     while @turns < 13
       sleep(0.5)
       guess = initialize_guess(mode)
       check_win(guess, code, mode)
-      exact_matches = 0
-      num_matches = 0
-      guess_clone = []
-      code_clone = []
+      @guess_clone.replace(guess)
+      @code_clone.replace(code)
       match_indexes = []
-      guess_clone.replace(guess)
-      code_clone.replace(code)
-      exact_matches += find_exact_matches(guess_clone, code_clone, match_indexes)
-      num_matches += find_num_matches(guess_clone, code_clone, match_indexes)
-      sleep(0.5)
-      feedback(exact_matches, num_matches)
-      @computer.comp_solve(exact_matches, num_matches) if mode != 'player_breaker'
-      sleep(0.5)
+      @code_clone.replace(code)
+      exact_matches = find_exact_matches(@guess_clone, @code_clone, match_indexes)
+      num_matches = find_num_matches(@guess_clone, @code_clone, match_indexes)
+      feedback_and_comp_solve(exact_matches, num_matches, mode)
       @turns += 1
     end
     end_turns(mode, code)

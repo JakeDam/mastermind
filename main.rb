@@ -20,6 +20,10 @@ class MainGame
   end
 end
 
-new_game = MainGame.new
-puts new_game.directions
-new_game.play_game
+def start_new_game
+  new_game = MainGame.new
+  puts new_game.directions
+  new_game.play_game
+end
+
+start_new_game

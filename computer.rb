@@ -2,11 +2,13 @@
 
 # Houses methods for computer to generate code and logic for guessing code
 class Computer
+  include Display
   attr_reader :comp_code, :next_guess
 
   def initialize
     @comp_code = []
     @next_guess = %w[1 1 1 1]
+    @prev_guesses = []
   end
 
   def generate_code
@@ -22,65 +24,54 @@ class Computer
 
   def feedback0(guess)
     next_num = @next_guess[0].to_i + 1
-    guess.map { next_num.to_s }
+    guess = guess.map { next_num.to_s }
+    @prev_guesses << guess
+    guess
   end
 
   def feedback1(guess)
     next_num = @next_guess[1].to_i + 1
-    guess.map.with_index { |n, i| i.zero? ? n : next_num.to_s }
+    guess = guess.map.with_index { |n, i| i.zero? ? n : next_num.to_s }
+    @prev_guesses << guess
+    guess
   end
 
   def feedback2(guess)
     next_num = @next_guess[2].to_i + 1
-    guess.map.with_index { |n, i| [0, 1].include?(i) ? n : next_num.to_s }
+    guess = guess.map.with_index { |n, i| [0, 1].include?(i) ? n : next_num.to_s }
+    @prev_guesses << guess
+    guess
   end
 
   def feedback3(guess)
     next_num = @next_guess[3].to_i + 1
     guess[3] = next_num.to_s
+    @prev_guesses << guess
     guess
   end
 
-  def feedback4(guess, exact_matches)
-    case exact_matches
-    when 0
-      guess = guess.shuffle
-    when 1
-      guess[1, 3] = guess[1, 3].shuffle
-    when 2
-      guess[2, 3] = guess[2, 3].shuffle
+  def feedback4(guess)
+    while (guess = guess.shuffle)
+      break if @prev_guesses.include?(guess) == false
     end
+    @prev_guesses << guess
     guess
   end
-
-  FEEDBACK_HASH = {
-    0 => method(:feedback0),
-    1 => method(:feedback1),
-    2 => method(:feedback2),
-    3 => method(:feedback3),
-    4 => method(:feedback4)
-  }.freeze
 
   def comp_solve(exact_matches, color_matches)
     feedback = (exact_matches + color_matches)
     guess = @next_guess
-    if feedback != 4
-      @next_guess.replace(FEEDBACK_HASH[feedback].call(guess))
-    else
-      @next_guess.replace(FEEDBACK_HASH[feedback].call(guess, exact_matches))
+    case feedback
+    when 0
+      @next_guess.replace(feedback0(guess))
+    when 1
+      @next_guess.replace(feedback1(guess))
+    when 2
+      @next_guess.replace(feedback2(guess))
+    when 3
+      @next_guess.replace(feedback3(guess))
+    when 4
+      @next_guess.replace(feedback4(guess))
     end
   end
 end
-
-#    case feedback
-#     when 0
-#       @next_guess.replace(feedback0(guess))
-#     when 1
-#       @next_guess.replace(feedback1(guess))
-#     when 2
-#       @next_guess.replace(feedback2(guess))
-#     when 3
-#       @next_guess.replace(feedback3(guess))
-#     when 4
-#       @next_guess.replace(feedback4(guess, exact_matches))
-#     end
